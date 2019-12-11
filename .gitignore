@@ -19,6 +19,7 @@ erl_crash.dump
 
 *.pem
 *.tar.gz
+*.env
 
 /config/*.toml
 /GITHUB_TOKEN
