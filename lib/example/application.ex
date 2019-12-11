@@ -4,8 +4,15 @@ defmodule Example.Application do
   def start(_type, _args) do
     import Supervisor.Spec
 
+    topologies = [
+      example: [
+        strategy: Cluster.Strategy.Epmd,
+        config: [hosts: [:"a@127.0.0.1", :"b@127.0.0.1"]],
+      ]
+    ]
+
     children = [
-      supervisor(Cluster.Supervisor, [Application.get_env(:libcluster, :topologies), [name: Example.ClusterSupervisor]]),
+      supervisor(Cluster.Supervisor, [topologies, [name: Example.ClusterSupervisor]]),
       supervisor(Example.Database, []),
       supervisor(ExampleWeb.Endpoint, []),
     ]
